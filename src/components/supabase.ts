@@ -41,26 +41,32 @@ export type Database = {
     Tables: {
       participants: {
         Row: {
+          apellido: string | null
           code: string | null
           created_at: string
           id: string
           name: string | null
+          nombre: string | null
           subtype: string | null
           type: string | null
         }
         Insert: {
+          apellido?: string | null
           code?: string | null
           created_at?: string
           id?: string
           name?: string | null
+          nombre?: string | null
           subtype?: string | null
           type?: string | null
         }
         Update: {
+          apellido?: string | null
           code?: string | null
           created_at?: string
           id?: string
           name?: string | null
+          nombre?: string | null
           subtype?: string | null
           type?: string | null
         }

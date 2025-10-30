@@ -3,23 +3,47 @@ import { Page, Text, View, Document, Font, Image } from "@react-pdf/renderer";
 import styles from "./pdfCertificate/pdfStyle";
 
 type PdfCertificateProps = {
-  name: string;
+  nombre: string | null;
+  apellido: string | null;
   type: string;
   code: string;
   subtype?: string;
 };
 
 export default function PdfCertificate({
-  name,
+  nombre,
+  apellido,
   type,
   subtype,
   code,
 }: PdfCertificateProps) {
+  // Format name based on nombre word count
+  const formatName = (firstName: string | null, lastName: string | null) => {
+    if (!firstName) return lastName || "";
+
+    const nombreParts = firstName.trim().split(/\s+/);
+    const apellidoParts = lastName?.trim().split(/\s+/) || [];
+
+    if (nombreParts.length >= 2) {
+      // If nombre has 2+ words: use both words + first letter of first apellido with period
+      const fullNombre = nombreParts.slice(0, 2).join(" ");
+      const firstApellidoLetter =
+        apellidoParts.length > 0 ? apellidoParts[0].charAt(0) + "." : "";
+      return [fullNombre, firstApellidoLetter].filter(Boolean).join(" ");
+    } else {
+      // If nombre has 1 word: use full nombre + full apellido (only first word of apellido)
+      const firstApellido = apellidoParts.length > 0 ? apellidoParts[0] : "";
+      return [firstName, firstApellido].filter(Boolean).join(" ");
+    }
+  };
+
+  const formattedName = formatName(nombre, apellido);
+
   return (
     <Document
       title={`${
         type === "confops25" ? "ConfOps LATAM 2025" : "WS LATAM 2025"
-      }   - ${name}`}
+      }   - ${formattedName}`}
     >
       <Page size={{ width: 1920, height: 1080 }}>
         <View
@@ -52,7 +76,7 @@ export default function PdfCertificate({
             por medio del presente reconocemos que
           </Text>
 
-          <Text style={styles.participantName}>{name}</Text>
+          <Text style={styles.participantName}>{formattedName}</Text>
 
           {type === "confops25" ? (
             <Text style={styles.description}>

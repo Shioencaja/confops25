@@ -42,10 +42,9 @@ const styles = StyleSheet.create({
     top: "340px",
     left: "176px",
     width: "1200px",
-    fontSize: "148px",
-    lineHeight: "148px",
     fontFamily: "Altone",
     fontWeight: 300,
+    fontSize: "140px",
   },
 
   description: {

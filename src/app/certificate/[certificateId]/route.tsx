@@ -53,7 +53,8 @@ export async function GET(
 
     // Render the PDF certificate with the participant's data
     console.log("Rendering PDF for participant:", {
-      name: participant.name,
+      nombre: participant.nombre,
+      apellido: participant.apellido,
       type: participant.type,
       code: participant.code,
     });
@@ -61,7 +62,8 @@ export async function GET(
     try {
       const stream = await renderToStream(
         <PdfCertificate
-          name={participant.name || "Unknown"}
+          nombre={participant.nombre}
+          apellido={participant.apellido}
           type={participant.type || "confops25"}
           code={participant.code || ""}
           subtype={participant.subtype || ""}
