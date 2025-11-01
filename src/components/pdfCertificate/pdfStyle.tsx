@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: "1200px",
     fontFamily: "Altone",
     fontWeight: 300,
-    fontSize: "140px",
+    fontSize: "130px",
   },
 
   description: {
